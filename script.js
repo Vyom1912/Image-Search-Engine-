@@ -1,35 +1,42 @@
-let scrollContainer = document.querySelector(".gallery");
-let backBtn = document.getElementById("backBtn");
-let nextBtn = document.getElementById("nextBtn");
+const searchFrom = document.getElementById("search-form");
+const searchBox = document.getElementById("search-box");
+const searchResult = document.getElementById("search-result");
+const showMoreBtn = document.getElementById("show-more-btn");
 
-const scrollAmount = scrollContainer.clientWidth;
+const accessKey = "FjqW6OWDlrmUJiAeLCVSqL5KtkM_2g_--Ib0OTsJx84";
 
-scrollContainer.addEventListener("wheel", (evt) => {
-  evt.preventDefault();
-  scrollContainer.style.scrollBehavior = "auto";
+let keyword = "";
+let page = 1;
+async function searchImages() {
+  keyword = searchBox.value;
+  const url = ` https://api.unsplash.com/search/photos?page=${page}&query=${keyword}&client_id=${accessKey}&per_page=12`;
+  const response = await fetch(url);
+  const data = await response.json();
 
-  scrollContainer.scrollLeft += evt.deltaY;
-});
-nextBtn.addEventListener("click", () => {
-  scrollContainer.style.scrollBehavior = "smooth";
-
-  if (
-    Math.ceil(scrollContainer.scrollLeft + scrollContainer.clientWidth) >=
-    scrollContainer.scrollWidth
-  ) {
-    scrollContainer.scrollLeft = 0;
-  } else {
-    scrollContainer.scrollLeft += scrollContainer.clientWidth;
+  if (page === 1) {
+    searchResult.innerHTML = "";
   }
+
+  const results = data.results;
+  results.map((result) => {
+    const image = document.createElement("img");
+    image.src = result.urls.small;
+    const imageLink = document.createElement("a");
+    imageLink.href = result.links.html;
+    imageLink.target = "_blank";
+
+    imageLink.appendChild(image);
+    searchResult.appendChild(imageLink);
+  });
+  showMoreBtn.style.display = "block";
+}
+
+searchFrom.addEventListener("submit", (e) => {
+  e.preventDefault();
+  page = 1;
+  searchImages();
 });
-
-backBtn.addEventListener("click", () => {
-  scrollContainer.style.scrollBehavior = "smooth";
-
-  // If reached the start, go to end
-  if (scrollContainer.scrollLeft === 0) {
-    scrollContainer.scrollLeft = scrollContainer.scrollWidth;
-  } else {
-    scrollContainer.scrollLeft -= 900;
-  }
+showMoreBtn.addEventListener("click", () => {
+  page++;
+  searchImages();
 });
