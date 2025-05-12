@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image Search Engine</title>
+    <title>Image Slider</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="image-solid.svg" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="circle-check-solid.svg"
+      type="image/x-icon" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -14,17 +17,28 @@
       referrerpolicy="no-referrer" />
   </head>
   <body>
-    <h1>Image Search Engine</h1>
-    <form action="" id="search-form">
-      <input
-        type="text"
-        name=""
-        id="search-box"
-        placeholder=" Search anything here..." />
-      <button>search</button>
-    </form>
-    <div id="search-result"></div>
-    <button id="show-more-btn">Show more</button>
+    <div class="gallery-wrap">
+      <i class="fa-solid fa-angle-left" id="backBtn"></i>
+      <div class="gallery">
+        <div>
+          <span><img src="image/image-1.png" alt="" /></span>
+          <span><img src="image/image-2.png" alt="" /></span>
+          <span><img src="image/image-3.png" alt="" /></span>
+        </div>
+        <div>
+          <span><img src="image/image-4.png" alt="" /></span>
+          <span><img src="image/image-5.png" alt="" /></span>
+          <span><img src="image/image-6.png" alt="" /></span>
+        </div>
+      </div>
+      <i class="fa-solid fa-angle-right" id="nextBtn"></i>
+    </div>
+    <footer class="footer">
+      <p>
+        &copy; 2025 Image Slider. Designed and developed by Vyom Patel. All
+        rights reserved.
+      </p>
+    </footer>
     <script src="script.js"></script>
   </body>
 </html>
